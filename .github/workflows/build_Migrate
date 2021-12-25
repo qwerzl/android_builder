@@ -1,0 +1,31 @@
+name: android_build_Migrate-OSS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - id: get-project
+        name: Get project name
+        run: echo "::set-output name=PROJECT::$(cat https://github.com/BaltiApps/Migrate-OSS.git)"
+      - name: Clone project
+        run: git clone https://github.com/BaltiApps/Migrate-OSS.git && git clone https://github.com/BaltiApps/FileX.git && git clone https://github.com/BaltiApps/baltitoolbox.git 
+      - name: Build the app
+        working-directory: ./Migrate-OSS
+        run: |
+          if [ ! -f "gradlew" ]; then gradle wrapper; fi
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-build-apk
+          path: ./**/*.apk
