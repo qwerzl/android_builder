@@ -1,4 +1,4 @@
-name: android_build_Migrate-OSS
+name: Baltiapps/Migrate-OSS
 
 on:
   workflow_dispatch:
