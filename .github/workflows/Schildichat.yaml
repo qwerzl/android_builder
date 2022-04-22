@@ -15,11 +15,11 @@ jobs:
           java-version: 11
       - id: get-project
         name: Get project name
-        run: echo "::set-output name=PROJECT::$(cat https://github.com/BaltiApps/Migrate-OSS.git)"
+        run: echo "::set-output name=PROJECT::$(cat https://github.com/qwerzl/SchildiChat-android.git)"
       - name: Clone project
-        run: git clone https://github.com/BaltiApps/Migrate-OSS.git && git clone https://github.com/BaltiApps/FileX.git && git clone https://github.com/BaltiApps/baltitoolbox.git 
+        run: git clone https://github.com/qwerzl/SchildiChat-android.git 
       - name: Build the app
-        working-directory: ./Migrate-OSS
+        working-directory: ./SchildiChat-android
         run: |
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew
